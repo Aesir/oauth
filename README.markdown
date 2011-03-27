@@ -91,10 +91,7 @@ match exactly, since they are used in the signature generation process.
 	var request = (HttpWebRequest)WebRequest.Create(url);
 	var response = (HttpWebResponse)request.GetResponse();
 
-#### Other OAuth Workflows
-
-
-##### XAuth
+#### XAuth
 
 This library also supports XAuth, which is a client authenticating form of OAuth that allows you
 to pass a user and password and obtain an access token in one step; this is useful for mobile
@@ -105,7 +102,7 @@ of OAuth beyond limiting credential input to a single time use.
 	OAuthRequest client = OAuthRequest.ForClientAuthentication("CONSUMER_KEY", "CONSUMER_SECRET", "USERNAME", "PASSWORD");
 	client.RequestUrl = "https://api.twitter.com/oauth/access_token";
 
-##### OAuth Echo
+#### OAuth Echo
 
 Sometimes applications need to make third-party requests through a security "double hop". For
 example, an image posting service that posts to Twitter but also has an API, needs a way to
