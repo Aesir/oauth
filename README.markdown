@@ -22,10 +22,8 @@ to OAuth servers.
 
 Making an OAuth request involves a lot more context than other security credentials. You can find
 all the details of the OAuth spec at http://oauth.net, and plenty of tutorials online to determine
-the "What", and this library will provide the "How".
-
-* In a typical 
-OAuth workflow you need to accomplish the following things:
+the "What", and this library will provide the "How". In a typical OAuth workflow you need to accomplish 
+the following things:
 
 * Obtain a "request token" from the OAuth server using a preset "consumer key" and "consumer secret"
 provided to you by the application you are consuming (i.e. Twitter, Google, etc.)
