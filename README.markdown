@@ -109,7 +109,7 @@ of OAuth beyond limiting credential input to a single time use.
 Sometimes applications need to make third-party requests through a security "double hop". For
 example, an image posting service that posts to Twitter but also has an API, needs a way to
 authorize that the user of their API has the same credentials as Twitter's API. OAuth Echo is
-accomplished by using special HTTP headers that point to a specific endpoing at the main provider's 
+accomplished by using special HTTP headers that point to a specific endpoint at the main provider's 
 site.
 
 	// Get an OAuthRequest instance for the main site's echo endpoint
