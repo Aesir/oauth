@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2C296700-D1D6-4EC0-9FC6-26A251C8230F}</ProjectGuid>
+    <ProjectGuid>{9D026615-54CC-454F-A8A2-C78FEF74E956}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OAuth</RootNamespace>
@@ -25,10 +25,17 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\lib\net40\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\bin\lib\net40\OAuth.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>oauth.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -40,20 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\OAuthCredentials.cs" />
-    <Compile Include="Client\Enums\OAuthParameterHandling.cs" />
-    <Compile Include="Client\Enums\OAuthSignatureMethod.cs" />
-    <Compile Include="Client\Enums\OAuthSignatureTreatment.cs" />
-    <Compile Include="Client\OAuthToken.cs" />
-    <Compile Include="Client\OAuthTools.cs" />
-    <Compile Include="Client\OAuthType.cs" />
-    <Compile Include="Client\OAuthWorkflow.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="WebPair.cs" />
-    <Compile Include="WebPairCollection.cs" />
+    <Compile Include="OAuthSignatureMethod.cs" />
+    <Compile Include="OAuthSignatureTreatment.cs" />
+    <Compile Include="OAuthRequest.cs" />
+    <Compile Include="OAuthTools.cs" />
+    <Compile Include="OAuthRequestType.cs" />
     <Compile Include="WebParameter.cs" />
     <Compile Include="WebParameterCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="oauth.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
