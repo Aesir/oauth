@@ -48,48 +48,55 @@ consumer secret, and set the RequestUrl property that you intend to make the req
 this library only prepares credentials, you can send the request using whatever HTTP client you
 prefer.
 
-	// Creating a new instance directly
-	OAuthRequest client = new OAuthRequest
-	{
-		Method = "GET",
-		Type = OAuthRequestType.RequestToken,
-		SignatureMethod = OAuthSignatureMethod.HmacSha1,
-		ConsumerKey = "CONSUMER_KEY",
-		ConsumerSecret = "CONSUMER_SECRET",
-		RequestUrl = "http://twitter.com/oauth/request_token",
-		Version = "1.0a",
-		Realm = "twitter.com"
-	};
+```csharp
+// Creating a new instance directly
+OAuthRequest client = new OAuthRequest
+{
+    Method = "GET",
+    Type = OAuthRequestType.RequestToken,
+    SignatureMethod = OAuthSignatureMethod.HmacSha1,
+    ConsumerKey = "CONSUMER_KEY",
+    ConsumerSecret = "CONSUMER_SECRET",
+    RequestUrl = "http://twitter.com/oauth/request_token",
+    Version = "1.0a",
+    Realm = "twitter.com"
+};
 
-	// Creating a new instance with a helper method
-	OAuthRequest client = OAuthRequest.ForRequestToken("CONSUMER_KEY", "CONSUMER_SECRET");
-	client.RequestUrl = "http://twitter.com/oauth/request_token";
+// Creating a new instance with a helper method
+OAuthRequest client = OAuthRequest.ForRequestToken("CONSUMER_KEY", "CONSUMER_SECRET");
+client.RequestUrl = "http://twitter.com/oauth/request_token";
+```
 
 Once you have an OAuthRequest instance, you can obtain either the appropriate HTTP Authorization
 header value, or the URI query string value, using one of two methods. Most OAuth providers
 support both of these authentication style specs.
 
-	// For HTTP header authorization
-	string auth = client.GetAuthorizationHeader();
+```csharp
+// For HTTP header authorization
+string auth = client.GetAuthorizationHeader();
 
-	/// For URL query authorization
-	string auth = client.GetAuthorizationQuery();
+/// For URL query authorization
+string auth = client.GetAuthorizationQuery();
+```
 
 From this point, you just need to pass this information to your HTTP client to send
 to the endpoint you specified in RequestUrl; remember the HTTP method and endpoint must 
 match exactly, since they are used in the signature generation process.
 
-	// Using HTTP header authorization
-	string auth = client.GetAuthorizationHeader();
-	HttpWebRequest request = (HttpWebRequest) WebRequest.Create(client.RequestUrl);           
-    request.Headers.Add("Authorization", auth);
-    HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+```csharp
+// Using HTTP header authorization
+string auth = client.GetAuthorizationHeader();
+HttpWebRequest request = (HttpWebRequest) WebRequest.Create(client.RequestUrl);           
 
-	// Using URL query authorization
-	string auth = client.GetAuthorizationQuery();
-	var url = client.RequestUrl + "?" + auth;
-	var request = (HttpWebRequest)WebRequest.Create(url);
-	var response = (HttpWebResponse)request.GetResponse();
+request.Headers.Add("Authorization", auth);
+HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+
+// Using URL query authorization
+string auth = client.GetAuthorizationQuery();
+var url = client.RequestUrl + "?" + auth;
+var request = (HttpWebRequest)WebRequest.Create(url);
+var response = (HttpWebResponse)request.GetResponse();
+```
 
 #### XAuth
 
@@ -99,8 +106,10 @@ applications, or when migrating from basic security to OAuth, and normally requi
 steps from the OAuth provider (i.e. applying for access), as this certainly defeats the purpose
 of OAuth beyond limiting credential input to a single time use.
 
-	OAuthRequest client = OAuthRequest.ForClientAuthentication("CONSUMER_KEY", "CONSUMER_SECRET", "USERNAME", "PASSWORD");
-	client.RequestUrl = "https://api.twitter.com/oauth/access_token";
+```csharp
+OAuthRequest client = OAuthRequest.ForClientAuthentication("CONSUMER_KEY", "CONSUMER_SECRET", "USERNAME", "PASSWORD");
+client.RequestUrl = "https://api.twitter.com/oauth/access_token";
+```
 
 #### OAuth Echo
 
@@ -110,12 +119,14 @@ authorize that the user of their API has the same credentials as Twitter's API. 
 accomplished by using special HTTP headers that point to a specific endpoint at the main provider's 
 site.
 
-	// Get an OAuthRequest instance for the main site's echo endpoint
-	OAuthRequest client = OAuthRequest.ForProtectedResource("CONSUMER_KEY", "CONSUMER_SECRET", "ACCESS_TOKEN", "ACCESS_TOKEN_SECRET");
-	client.RequestUrl = "https://api.twitter.com/account/verify_credentials.json";
-	var auth = client.GetAuthorizationHeader();
+```csharp
+// Get an OAuthRequest instance for the main site's echo endpoint
+OAuthRequest client = OAuthRequest.ForProtectedResource("CONSUMER_KEY", "CONSUMER_SECRET", "ACCESS_TOKEN", "ACCESS_TOKEN_SECRET");
+client.RequestUrl = "https://api.twitter.com/account/verify_credentials.json";
+var auth = client.GetAuthorizationHeader();
 
-	// Make the request to the third-party site and provide the correct echo headers
-	HttpWebRequest echo = (HttpWebRequest) WebRequest.Create("http://api.twitpic.com); 
-	echo.Headers.Add("X-Auth-Service-Provider", client.RequestUrl);
-    echo.Headers.Add("X-Verify-Credentials-Authorization", auth);
+// Make the request to the third-party site and provide the correct echo headers
+HttpWebRequest echo = (HttpWebRequest) WebRequest.Create("http://api.twitpic.com); 
+echo.Headers.Add("X-Auth-Service-Provider", client.RequestUrl);
+echo.Headers.Add("X-Verify-Credentials-Authorization", auth);
+```
