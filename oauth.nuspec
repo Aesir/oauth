@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>OAuth</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Daniel Crenna</authors>
     <owners>Daniel Crenna</owners>
     <summary>An implementation of OAuth 1.0a for .NET</summary>
