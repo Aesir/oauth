@@ -125,7 +125,21 @@ namespace OAuth
 
         #region Authorization Query
 
-        public string GetAuthorizationQuery()
+		public string GetAuthorizationQuery(NameValueCollection parameters)
+        {
+            var collection = new WebParameterCollection(parameters);
+
+			return GetAuthorizationQuery(collection);
+        }
+
+		public string GetAuthorizationQuery(IDictionary<string, string> parameters)
+        {
+            var collection = new WebParameterCollection(parameters);
+
+			return GetAuthorizationQuery(collection);
+        }
+
+		public string GetAuthorizationQuery()
         {
             var collection = new WebParameterCollection(0);
 
