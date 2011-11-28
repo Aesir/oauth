@@ -34,12 +34,12 @@ namespace OAuth
 		public virtual IEnumerable<string> Names
 		{
             get { return _parameters.Select(p => p.Name); }
-        }
+		}
 
 		public virtual IEnumerable<string> Values
-        {
+		{
             get { return _parameters.Select(p => p.Value); }
-        }
+		}
 
 		public WebParameterCollection(IEnumerable<WebParameter> parameters)
 		{
@@ -111,7 +111,7 @@ namespace OAuth
 		public virtual void Add(string name, string value)
 		{
 			var pair = new WebParameter(name, value);
-			_parameters.Add(pair);
+			this.Add(pair);
 		}
 
 		#region IList<WebParameter> Members
@@ -128,7 +128,10 @@ namespace OAuth
 
 		public virtual void Add(WebParameter parameter)
 		{
-			_parameters.Add(parameter);
+			if (IsValidParameter(parameter))
+			{
+				_parameters.Add(parameter);
+			}
 		}
 
 		public virtual void Clear()
@@ -168,7 +171,10 @@ namespace OAuth
 
 		public virtual void Insert(int index, WebParameter parameter)
 		{
-			_parameters.Insert(index, parameter);
+			if (IsValidParameter(parameter))
+			{
+				_parameters.Insert(index, parameter);
+			}
 		}
 
 		public virtual void RemoveAt(int index)
