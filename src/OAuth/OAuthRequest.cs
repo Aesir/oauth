@@ -11,25 +11,102 @@ namespace OAuth
 	/// <seealso href="http://oauth.net/"/>
 	public class OAuthRequest
 	{
-        public virtual OAuthSignatureMethod SignatureMethod { get; set; }
-        public virtual OAuthSignatureTreatment SignatureTreatment { get; set; }
-        public virtual OAuthRequestType Type { get; set; }
+		public virtual OAuthSignatureMethod SignatureMethod
+		{
+			get;
+			set;
+		}
 
-        public virtual string Method { get; set; }
-        public virtual string Realm { get; set; }
-        public virtual string ConsumerKey { get; set; }
-        public virtual string ConsumerSecret { get; set; }
-        public virtual string Token { get; set; }
-        public virtual string TokenSecret { get; set; }
-        public virtual string Verifier { get; set; }
-        public virtual string ClientUsername { get; set; }
-        public virtual string ClientPassword { get; set; }
-        public virtual string CallbackUrl { get; set; }
-        public virtual string Version { get; set; }
-        public virtual string SessionHandle { get; set; }
+		public virtual OAuthSignatureTreatment SignatureTreatment
+		{
+			get;
+			set;
+		}
+
+		public virtual OAuthRequestType Type
+		{
+			get;
+			set;
+		}
+
+		public virtual string Method
+		{
+			get;
+			set;
+		}
+
+		public virtual string Realm
+		{
+			get;
+			set;
+		}
+
+		public virtual string ConsumerKey
+		{
+			get;
+			set;
+		}
+
+		public virtual string ConsumerSecret
+		{
+			get;
+			set;
+		}
+
+		public virtual string Token
+		{
+			get;
+			set;
+		}
+
+		public virtual string TokenSecret
+		{
+			get;
+			set;
+		}
+
+		public virtual string Verifier
+		{
+			get;
+			set;
+		}
+
+		public virtual string ClientUsername
+		{
+			get;
+			set;
+		}
+
+		public virtual string ClientPassword
+		{
+			get;
+			set;
+		}
+
+		public virtual string CallbackUrl
+		{
+			get;
+			set;
+		}
+
+		public virtual string Version
+		{
+			get;
+			set;
+		}
+
+		public virtual string SessionHandle
+		{
+			get;
+			set;
+		}
 
 		/// <seealso cref="http://oauth.net/core/1.0#request_urls"/>
-        public virtual string RequestUrl { get; set; }
+		public virtual string RequestUrl
+		{
+			get;
+			set;
+		}
 
 		#region Authorization Header
 
@@ -117,7 +194,7 @@ namespace OAuth
 			return authorization;
 		}
 
-        #endregion
+		#endregion Authorization Header
 
 		#region Authorization Query
 
@@ -200,7 +277,7 @@ namespace OAuth
 			return authorization;
 		}
 
-        #endregion
+		#endregion Authorization Query
 
 		private string GetNewSignature(WebParameterCollection parameters)
 		{
@@ -212,7 +289,7 @@ namespace OAuth
 
 			var signatureBase = OAuthTools.ConcatenateRequestElements(Method.ToUpperInvariant(), RequestUrl, parameters);
 
-			var signature = OAuthTools.GetSignature(SignatureMethod, SignatureTreatment, signatureBase, ConsumerSecret);
+			var signature = OAuthTools.GetSignature(SignatureMethod, SignatureTreatment, signatureBase, ConsumerSecret, TokenSecret);
 
 			return signature;
 		}
@@ -227,7 +304,7 @@ namespace OAuth
 
 			var signatureBase = OAuthTools.ConcatenateRequestElements(Method.ToUpperInvariant(), RequestUrl, parameters);
 
-			var signature = OAuthTools.GetSignature(SignatureMethod, SignatureTreatment, signatureBase, ConsumerSecret);
+			var signature = OAuthTools.GetSignature(SignatureMethod, SignatureTreatment, signatureBase, ConsumerSecret, TokenSecret);
 
 			return signature;
 		}
@@ -326,7 +403,7 @@ namespace OAuth
 			return credentials;
 		}
 
-        #endregion
+		#endregion Static Helpers
 
 		private void ValidateRequestState()
 		{
@@ -495,5 +572,3 @@ namespace OAuth
 		}
 	}
 }
-
-
